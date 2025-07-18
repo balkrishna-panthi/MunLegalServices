@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mun Legal Services</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans&display=swap" rel="stylesheet" />
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+<!-- AOS -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+<style>
+  /* Reset & base */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0; 
+    font-family: 'Open Sans', sans-serif;
+    background: #121a2a; /* deep navy */
+    color: #f0e9db; /* ivory */
+    line-height: 1.6;
+  }
+  a {
+    color: #c9a85e; /* warm gold */
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  a:hover, a:focus {
+    color: #f0d67b;
+    outline: none;
+  }
+  h1,h2,h3,h4,h5,h6 {
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    color: #f0d67b;
+    margin-top: 0;
+  }
+  /* Container */
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  header {
+    background: #0f1520;
+    padding: 1.25rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.8);
+  }
+  header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  header .logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  header .logo img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    border-radius: 8px;
+    filter: drop-shadow(0 0 2px #c9a85e);
+  }
+  header nav a {
+    margin-left: 2rem;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  header nav a:first-child {
+    margin-left: 0;
+  }
+
+  /* Hero */
+  .hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5rem 1rem 6rem;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .hero-text {
+    flex: 1 1 400px;
+    max-width: 600px;
+  }
+  .hero-text h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px #c9a85e99;
+  }
+  .hero-text p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    color: #d7cfa6;
+  }
+  .btn-primary {
+    background: linear-gradient(90deg, #c9a85e 0%, #f0d67b 100%);
+    border: none;
+    padding: 1rem 2.5rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #121212;
+    border-radius: 40px;
+    cursor: pointer;
+    box-shadow: 0 6px 22px rgba(201,168,94,0.7);
+    transition: all 0.3s ease;
+  }
+  .btn-primary:hover, .btn-primary:focus {
+    background: linear-gradient(90deg, #f0d67b 0%, #c9a85e 100%);
+    box-shadow: 0 10px 30px rgba(240,214,123,0.9);
+    outline: none;
+    transform: translateY(-3px);
+  }
+  .hero-image {
+    flex: 1 1 380px;
+    max-width: 400px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 0 20px #c9a85eaa;
+  }
+  .hero-image img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  /* Sections */
+  section {
+    padding: 4rem 0 5rem;
+  }
+  section:nth-child(even) {
+    background: #161f33;
+  }
+  section h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  section p {
+    max-width: 700px;
+    margin: 0 auto 3rem;
+    text-align: center;
+    color: #d7cfa6;
+    font-size: 1.1rem;
+  }
+
+  /* Services */
+  .services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .service-card {
+    background: #1f2a44;
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 0 20px #3a3f5c88;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    text-align: center;
+    cursor: default;
+  }
+  .service-card:hover, .service-card:focus-within {
+    box-shadow: 0 15px 40px #c9a85ecc;
+    transform: translateY(-8px);
+    outline: none;
+  }
+  .service-card i {
+    font-size: 3.5rem;
+    color: #c9a85e;
+    margin-bottom: 1rem;
+  }
+  .service-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
+    color: #f0d67b;
+  }
+  .service-card p {
+    font-size: 1rem;
+    color: #d7cfa6;
+  }
+
+  /* Stats */
+  .stats-grid {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .stat-item {
+    text-align: center;
+    user-select: none;
+  }
+  .stat-number {
+    font-size: 3.5rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-shadow: 0 0 18px #c9a85eaa;
+    color: #f0d67b;
+  }
+  .stat-label {
+    margin-top: 0.5rem;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #d7cfa6;
+  }
+
+  /* Testimonials */
+  #success .testimonials {
+    max-width: 1150px;
+    margin: 0 auto;
+    display: flex;
+    gap: 2.8rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .testimonial-card {
+    background: #1f273f;
+    border-radius: 14px;
+    box-shadow: 0 0 16px #3a3e5c99;
+    max-width: 360px;
+    padding: 2rem 2rem 2.5rem;
+    display: flex;
+    gap: 1.6rem;
+    align-items: flex-start;
+    cursor: default;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .testimonial-card:hover, .testimonial-card:focus-within {
+    box-shadow: 0 10px 42px #c9a85ecc;
+    transform: translateY(-6px);
+    outline: none;
+  }
+  .testimonial-img {
+    width: 110px;
+    height: 140px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 0 14px #c9a85eaa;
+    user-select: none;
+    user-drag: none;
+    flex-shrink: 0;
+  }
+  .testimonial-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: #d7cfa6;
+  }
+  .testimonial-text {
+    font-style: italic;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  .testimonial-client {
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: #f0d67b;
+    margin-top: auto;
+  }
+  .testimonial-type {
+    font-size: 0.9rem;
+    color: #bfb69c;
+  }
+
+  /* Contact */
+  #contact form {
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  #contact input[type="text"],
+  #contact input[type="email"],
+  #contact textarea {
+    padding: 1rem 1.2rem;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    border: none;
+    background: #1b233b;
+    color: #e0d9b8;
+    box-shadow: inset 0 0 8px #2e3259;
+    transition: box-shadow 0.3s ease;
+    resize: vertical;
+    font-family: 'Open Sans', sans-serif;
+  }
+  #contact input[type="text"]:focus,
+  #contact input[type="email"]:focus,
+  #contact textarea:focus {
+    outline: none;
+    box-shadow: 0 0 12px #c9a85e;
+    background: #232b4c;
+  }
+  #contact button {
+    background: linear-gradient(90deg, #c9a85e 0%, #f0d67b 100%);
+    border: none;
+    padding: 1rem 2.5rem;
+    border-radius: 40px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #121212;
+    cursor: pointer;
+    box-shadow: 0 6px 26px rgba(201,168,94,0.65);
+    transition: all 0.3s ease;
+  }
+  #contact button:hover, #contact button:focus {
+    background: linear-gradient(90deg, #f0d67b 0%, #c9a85e 100%);
+    box-shadow: 0 10px 40px rgba(240,214,123,0.9);
+    outline: none;
+    transform: translateY(-3px);
+  }
+
+  /* Map */
+  #contact .map-container {
+    margin: 2rem auto 3rem;
+    max-width: 600px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 0 26px #c9a85e88;
+  }
+  #contact iframe {
+    width: 100%;
+    height: 300px;
+    border: none;
+  }
+
+  /* Footer */
+  footer {
+    background: #0f1520;
+    padding: 3rem 1rem 4rem;
+    color: #c9a85e;
+    text-align: center;
+    border-top: 2px solid #232b4c;
+  }
+  footer .footer-logo {
+    font-family: 'Merriweather', serif;
+    font-weight: 900;
+    font-size: 2.4rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+    user-select: none;
+  }
+  footer .footer-copy {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    color: #bfb69c;
+  }
+  footer .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+  }
+  footer .social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid #c9a85e;
+    color: #c9a85e;
+    font-size: 1.6rem;
+    box-shadow: 0 0 18px #c9a85e66;
+    transition: color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease,
+      transform 0.3s ease;
+  }
+  footer .social-links a:hover,
+  footer .social-links a:focus {
+    background: #c9a85e;
+    color: #121212;
+    box-shadow: 0 0 30px #f0d67bcc;
+    transform: scale(1.15);
+    outline: none;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .hero {
+      flex-direction: column;
+      text-align: center;
+      padding: 4rem 1rem 5rem;
+    }
+    .hero-image {
+      max-width: 300px;
+      margin: 2rem auto 0;
+      box-shadow: 0 0 16px #c9a85eaa;
+    }
+  }
+  @media (max-width: 480px) {
+    header nav a {
+      margin-left: 1rem;
+      font-size: 0.9rem;
+    }
+    .services {
+      grid-template-columns: 1fr !important;
+    }
+    .testimonial-card {
+      flex-direction: column !important;
+      max-width: 100% !important;
+      text-align: center !important;
+    }
+    .testimonial-img {
+      margin-bottom: 1rem;
+      margin-left: auto;
+      margin-right: auto;
+      width: 140px !important;
+      height: 170px !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header role="banner" aria-label="Primary navigation">
+  <div class="container">
+    <a href="#" class="logo" tabindex="0" aria-label="Mun Legal Services homepage">
+      <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=64&q=80" alt="Mun Legal Services Logo" loading="lazy" />
+      <h1>Mun Legal Services</h1>
+    </a>
+    <nav>
+      <a href="#about" tabindex="0">About</a>
+      <a href="#services" tabindex="0">Services</a>
+      <a href="#stats" tabindex="0">Track Record</a>
+      <a href="#success" tabindex="0">Success Stories</a>
+      <a href="#contact" tabindex="0">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" role="region" aria-label="Hero section with firm introduction and lawyer portrait">
+  <div class="hero-text" data-aos="fade-right" data-aos-duration="1200" tabindex="0">
+    <h1>Justice Served. Excellence Delivered.</h1>
+    <p>At Mun Legal Services, we combine deep expertise and unwavering integrity to fight for your rights and achieve your goals.</p>
+    <button class="btn-primary" aria-label="Request a consultation">Request a Consultation</button>
+  </div>
+  <div class="hero-image" data-aos="fade-left" data-aos-duration="1200" tabindex="0">
+    <img src="https://images.unsplash.com/photo-1573496771623-3a2721a4e72c?auto=format&fit=crop&w=600&q=90" alt="Professional lawyer portrait" loading="lazy" />
+  </div>
+</section>
+
+<section id="about" role="region" aria-labelledby="about-title" data-aos="fade-up" data-aos-duration="900" tabindex="0">
+  <h2 id="about-title">About Mun Legal Services</h2>
+  <p>Established with a mission to provide unparalleled legal support, Mun Legal Services has a proven track record in delivering tailored, effective, and ethical solutions to individuals and corporations alike.</p>
+</section>
+
+<section id="services" role="region" aria-labelledby="services-title" data-aos="fade-up" data-aos-duration="900" tabindex="0">
+  <h2 id="services-title">Our Practice Areas</h2>
+  <div class="services" role="list">
+    <article class="service-card" role="listitem" tabindex="0" aria-label="Civil Law - Comprehensive civil litigation and dispute resolution services">
+      <i class="fas fa-scale-balanced" aria-hidden="true"></i>
+      <h3>Civil Law</h3>
+      <p>Comprehensive civil litigation and dispute resolution services.</p>
+    </article>
+    <article class="service-card" role="listitem" tabindex="0" aria-label="Corporate Law - Expert legal counsel for businesses and corporate entities">
+      <i class="fas fa-handshake" aria-hidden="true"></i>
+      <h3>Corporate Law</h3>
+      <p>Expert legal counsel for businesses and corporate entities.</p>
+    </article>
+    <article class="service-card" role="listitem" tabindex="0" aria-label="Criminal Defense - Strong defense representation for criminal allegations">
+      <i class="fas fa-gavel" aria-hidden="true"></i>
+      <h3>Criminal Defense</h3>
+      <p>Strong defense representation for criminal allegations.</p>
+    </article>
+  </div>
+</section>
+
+<section id="stats" role="region" aria-labelledby="stats-title" data-aos="fade-up" data-aos-duration="900" tabindex="0">
+  <h2 id="stats-title">Our Track Record</h2>
+  <div class="stats-grid" role="list">
+    <div class="stat-item" role="listitem" tabindex="0" aria-label="500 clients served">
+      <div class="stat-number counter" data-target="500">0</div>
+      <div class="stat-label">Clients Served</div>
+    </div>
+    <div class="stat-item" role="listitem" tabindex="0" aria-label="450 cases won">
+      <div class="stat-number counter" data-target="450">0</div>
+      <div class="stat-label">Cases Won</div>
+    </div>
+    <div class="stat-item" role="listitem" tabindex="0" aria-label="20 years of experience">
+      <div class="stat-number counter" data-target="20">0</div>
+      <div class="stat-label">Years of Experience</div>
+    </div>
+  </div>
+</section>
+
+<section
+  id="success"
+  aria-label="Client Success Stories"
+  data-aos="fade-up"
+  data-aos-duration="1000"
+  tabindex="0"
+>
+  <h2>Client Success Stories</h2>
+  <div class="testimonials" role="list">
+    <article
+      class="testimonial-card"
+      role="listitem"
+      tabindex="0"
+      aria-label="Success story by client Tilak Ram Gaire, Xiteez Pandey, Corporate Client, Rupandehi"
+    >
+      <img
+        src="https://randomuser.me/api/portraits/men/43.jpg"
+        alt="Tilak Ram Gaire"
+        class="testimonial-img"
+        loading="lazy"
+        width="110"
+        height="140"
+      />
+      <div class="testimonial-content">
+        <p class="testimonial-text">
+          "I really admire the service given by Mun Legal Services... The service was so quick and their staff was so
+          much helpful and friendly. Heartily welcome here if you have any query regarding law and notary service.
+          Thank you🩷"
+        </p>
+        <div class="testimonial-client">Tilak Ram Gaire &amp; Xiteez Pandey</div>
+        <div class="testimonial-type">Corporate Client, Rupandehi</div>
+      </div>
+    </article>
+
+    <article
+      class="testimonial-card"
+      role="listitem"
+      tabindex="0"
+      aria-label="Success story by client Dhiraj Kc, Family Law Client"
+    >
+      <img
+        src="https://randomuser.me/api/portraits/men/65.jpg"
+        alt="Dhiraj Kc"
+        class="testimonial-img"
+        loading="lazy"
+        width="110"
+        height="140"
+      />
+      <div class="testimonial-content">
+        <p class="testimonial-text">
+          "Thanks, we really enjoyed you assisting us in a timely manner. We will use your notary services again!"
+        </p>
+        <div class="testimonial-client">Dhiraj Kc</div>
+        <div class="testimonial-type">Family Law Client</div>
+      </div>
+    </article>
+
+    <article
+      class="testimonial-card"
+      role="listitem"
+      tabindex="0"
+      aria-label="Success story by client Ramesh, Civil Case Client"
+    >
+      <img
+        src="https://randomuser.me/api/portraits/men/53.jpg"
+        alt="Ramesh Basyal"
+        class="testimonial-img"
+        loading="lazy"
+        width="110"
+        height="140"
+      />
+      <div class="testimonial-content">
+        <p class="testimonial-text">
+          "I really admire the service given by Mun Legal Services... Hey guys! you are also heartily welcome here if you
+          have any query regarding law and notary service. Thank you"
+        </p>
+        <div class="testimonial-client">Ramesh Basyal</div>
+        <div class="testimonial-type">Civil Case Client</div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section
+  id="contact"
+  aria-label="Contact form to reach Mun Legal Services"
+  data-aos="fade-up"
+  data-aos-duration="1000"
+  tabindex="0"
+>
+  <h2>Contact Us</h2>
+  <p>Reach out for a consultation or legal support. We’re ready to assist you.</p>
+  <form aria-label="Contact form" onsubmit="return false;">
+    <input
+      type="text"
+      name="name"
+      placeholder="Your Full Name"
+      aria-required="true"
+      required
+      autocomplete="name"
+      tabindex="0"
+    />
+    <input
+      type="email"
+      name="email"
+      placeholder="Your Email Address"
+      aria-required="true"
+      required
+      autocomplete="email"
+      tabindex="0"
+    />
+    <textarea
+      name="message"
+      placeholder="Your Message"
+      rows="5"
+      aria-required="true"
+      required
+      tabindex="0"
+    ></textarea>
+    <button type="submit" aria-label="Send message" tabindex="0">Send Message</button>
+  </form>
+  <div class="map-container" aria-label="Location map of Mun Legal Services">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.163443624449!2d85.31568841506745!3d27.71044608279837!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1997fa10e3ab%3A0xc3e0fa8c40f83d60!2sKathmandu!5e0!3m2!1sen!2snp!4v1689742955447!5m2!1sen!2snp"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      aria-hidden="false"
+      tabindex="0"
+    ></iframe>
+  </div>
+</section>
+
+<footer role="contentinfo" aria-label="Footer with social media links">
+  <div class="container">
+    <div class="footer-logo" tabindex="0" aria-label="Mun Legal Services logo">Mun Legal Services</div>
+    <p class="footer-copy" tabindex="0">&copy; 2025 Mun Legal Services. All rights reserved.</p>
+    <div class="social-links" role="list" aria-label="Social media links">
+      <a href="#" aria-label="Facebook" role="listitem" tabindex="0"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Twitter" role="listitem" tabindex="0"><i class="fab fa-twitter"></i></a>
+      <a href="#" aria-label="LinkedIn" role="listitem" tabindex="0"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#" aria-label="Instagram" role="listitem" tabindex="0"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({ once: true });
+
+  // Animate counters
+  document.querySelectorAll('.counter').forEach((counter) => {
+    const updateCount = () => {
+      const target = +counter.getAttribute('data-target');
+      const count = +counter.innerText;
+      const increment = target / 150;
+
+      if (count < target) {
+        counter.innerText = Math.ceil(count + increment);
+        setTimeout(updateCount, 15);
+      } else {
+        counter.innerText = target;
+      }
+    };
+    updateCount();
+  });
+</script>
+
+</body>
+</html>
