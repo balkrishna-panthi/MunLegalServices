@@ -926,27 +926,69 @@
         grid-template-columns: 1fr;
       }
     }
+
+      /* Language Switcher */
+    .language-switcher {
+      position: fixed;
+      top: 120px;
+      right: 20px;
+      z-index: 999;
+      background: white;
+      border-radius: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      overflow: hidden;
+      display: flex;
+    }
+    
+    .language-btn {
+      padding: 8px 15px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .language-btn.active {
+      background: var(--secondary);
+      color: white;
+    }
+    
+    /* Nepali font for specific elements */
+    .nepali {
+      font-family: 'Preeti', 'Mangal', sans-serif;
+      line-height: 1.8;
+    }
+    
+    @media (max-width: 768px) {
+      .language-switcher {
+        top: 100px;
+        right: 10px;
+      }
+    }
   </style>
 </head>
 <body>
+   <div class="language-switcher">
+    <button class="language-btn active" id="enBtn">EN</button>
+    <button class="language-btn" id="npBtn">ने</button>
+  </div>
   <!-- Header -->
   <header id="header">
     <div class="container header-container">
       <a href="#" class="logo">
-        <!-- <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=128&q=80" alt="Mun Legal Services Logo"> -->
-         <img src="./logo.png" alt="Mun Legal Services Logo">
-       
-        <span class="logo-text">Mun <span>Legal Services</span></span>
+        <img src="logo.png" alt="Mun Legal Services Logo">
+        <span class="logo-text" data-en="Mun Legal" data-np="मुन कानूनी सेवा">Mun Legal</span>
       </a>
       
       <nav>
         <ul id="nav-menu">
-          <li><a href="#home" class="active">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#team">Attorneys</a></li>
-          <li><a href="#testimonials">Success Stories</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#home" class="active" data-en="Home" data-np="गृहपृष्ठ">Home</a></li>
+          <li><a href="#about" data-en="About" data-np="हाम्रो बारेमा">About</a></li>
+          <li><a href="#services" data-en="Services" data-np="सेवाहरू">Services</a></li>
+          <li><a href="#team" data-en="Attorneys" data-np="वकिलहरू">Attorneys</a></li>
+          <li><a href="#testimonials" data-en="Success Stories" data-np="सफलताका कथाहरू">Success Stories</a></li>
+          <li><a href="#contact" data-en="Contact" data-np="सम्पर्क">Contact</a></li>
         </ul>
       </nav>
       
@@ -957,22 +999,22 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="hero" id="home">
+   <section class="hero" id="home">
     <div class="container">
       <div class="hero-content" data-aos="fade-right" data-aos-duration="1000">
-        <h1>Justice. Integrity. Excellence.</h1>
-        <p>At Mun Legal Services, we combine decades of experience with innovative legal strategies to protect your rights and achieve the best possible outcomes for your case.</p>
+        <h1 data-en="Justice. Integrity. Excellence." data-np="न्याय। ईमान्दारी। उत्कृष्टता।">Justice. Integrity. Excellence.</h1>
+        <p data-en="At Mun Legal Services, we combine decades of experience with innovative legal strategies to protect your rights." 
+           data-np="मुन कानूनी सेवामा, हामी दशकौंको अनुभव र नवीन कानूनी रणनीतिहरू संयोजन गरेर तपाईंको अधिकारको रक्षा गर्दछौं।">
+          At Mun Legal Services, we combine decades of experience with innovative legal strategies to protect your rights.
+        </p>
         <div class="hero-btns">
-          <a href="#contact" class="btn btn-primary">Free Consultation</a>
-          <a href="tel:+1234567890" class="btn btn-outline">Call Now</a>
+          <a href="#contact" class="btn btn-primary" data-en="Free Consultation" data-np="निःशुल्क परामर्श">Free Consultation</a>
+          <a href="tel:+9771234567890" class="btn btn-outline" data-en="Call Now" data-np="अहिले कल गर्नुहोस्">Call Now</a>
         </div>
-      </div>
-      
-      <div class="hero-image" data-aos="fade-left" data-aos-duration="1000">
-        <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Professional lawyer in office">
       </div>
     </div>
   </section>
+
 
   <!-- About Section -->
   <section class="about section-padding" id="about">
@@ -1532,6 +1574,57 @@
         }
       });
     });
+  </script>
+   <script>
+    // Language switching functionality
+    const enBtn = document.getElementById('enBtn');
+    const npBtn = document.getElementById('npBtn');
+    const nepaliElements = document.querySelectorAll('[data-np]');
+    
+    // Load language preference from localStorage or default to English
+    let currentLang = localStorage.getItem('language') || 'en';
+    
+    // Set initial language
+    setLanguage(currentLang);
+    
+    // Button click handlers
+    enBtn.addEventListener('click', () => setLanguage('en'));
+    npBtn.addEventListener('click', () => setLanguage('np'));
+    
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('language', lang);
+      
+      // Update button states
+      enBtn.classList.toggle('active', lang === 'en');
+      npBtn.classList.toggle('active', lang === 'np');
+      
+      // Toggle Nepali font class on body
+      document.body.classList.toggle('nepali', lang === 'np'); //adds class 'nepali' if true else removes class// it is responsible for the jibrish text in cards
+      
+      // Update all elements with data attributes
+      nepaliElements.forEach(element => {
+        if (element.dataset[lang]) {
+          if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+            element.placeholder = element.dataset[lang];
+          } else {
+            element.textContent = element.dataset[lang];
+          }
+        }
+      });
+      
+      // Special case for logo text
+      const logoText = document.querySelector('.logo-text');
+      if (logoText) {
+        logoText.textContent = logoText.dataset[lang];
+      }
+    }
+    
+    // Load Preeti font for Nepali
+    const link = document.createElement('link');
+    link.href = 'https://fonts.googleapis.com/css2?family=Mangal&display=swap';
+    link.rel = 'stylesheet';
+    document.head.appendChild(link);
   </script>
 </body>
 </html>
